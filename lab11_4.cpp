@@ -30,24 +30,17 @@ void ProcessFiles(const string& fName, const string& gName, char excludeChar) {
         return;
     }
 
-    // 1. Дізнаємось, скільки всього рядків у файлі
     int totalLines = CountLines(fName);
 
-    // 2. Головний цикл: йдемо від останнього номера рядка до 1-го
     for (int targetLine = totalLines; targetLine >= 1; targetLine--) {
 
-        ifstream fin(fName); // Відкриваємо файл заново для кожного рядка
+        ifstream fin(fName);
         string line;
 
-        // Пропускаємо всі рядки до потрібного (targetLine)
-        // Наприклад, якщо треба 4-й рядок, пропускаємо 1, 2, 3
         for (int current = 1; current <= targetLine; current++) {
             getline(fin, line);
         }
 
-        // Тепер у змінній 'line' знаходиться потрібний рядок
-
-        // 3. Обробляємо рядок (видаляємо символ)
         string processedLine = "";
         for (char c : line) {
             if (c != excludeChar) {
@@ -55,10 +48,9 @@ void ProcessFiles(const string& fName, const string& gName, char excludeChar) {
             }
         }
 
-        // 4. Записуємо у файл G
         fout << processedLine << endl;
 
-        fin.close(); // Закриваємо, щоб у наступній ітерації відкрити знову
+        fin.close();
     }
 
     fout.close();
